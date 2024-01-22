@@ -4,12 +4,16 @@
     <div class="row">
         <div class="col-1"></div>
         <div class="col-10">
+
+
             {% for articulo in articulo_list%}
             <div class="card mb-3" style="max-width: 1200px;">
                 <div class="row g-0">
                   <div class="col-4">
+                    {% if articulo.imagen %}
                     <img src="{{ articulo.imagen.url }}" class="img-fluid rounded-start" alt="imagen de {{ articulo }}">
                   </div>
+                    {% endif %}
                   <div class="col-8">
                     <div class="card-body">
                       <h5 class="card-title">{{ articulo }} (Creado por {{ articulo.autor }})</h5>
@@ -25,6 +29,8 @@
                       {% for comentario in articulo.comentario_set.all %}
                         <p class="card-text"><small class="text-muted">{{ comentario }}</small></p>
                       {% endfor %}
+
+                      {%if articulo.autor == request.user %}
                      <p class="card-text">
                         <small class="text-muted">
                             <a href="{% url 'borrar' articulo.id %}">borrar</a>
@@ -35,6 +41,7 @@
                             <a href="{% url 'modificar' articulo.id %}">modificar</a>
                         </small>
                      </p>
+                     {% endif %}
                     </div>
                   </div>
                 </div>

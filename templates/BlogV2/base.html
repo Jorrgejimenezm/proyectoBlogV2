@@ -16,9 +16,19 @@
             <li class="nav-item">
               <a class="nav-link active" href="{% url 'listado' %}">Articulos</a>
             </li>
+
+            {% if request.user.is_authenticated %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'crear' %}">Crear articulo</a>
+                <li class="nav-item">
+                  <a class="nav-link">({{ request.user }})</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="login ">entrar</a>
+                </li>
             </li>
+            {% endif %}
           </ul>
         </div>
       </nav>    
