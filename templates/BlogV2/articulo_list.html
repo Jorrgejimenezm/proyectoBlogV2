@@ -1,0 +1,47 @@
+{% extends "BlogV2/base.html" %}
+{% block contenido %}
+<div class="container">
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+            {% for articulo in articulo_list%}
+            <div class="card mb-3" style="max-width: 1200px;">
+                <div class="row g-0">
+                  <div class="col-4">
+                    <img src="{{ articulo.imagen.url }}" class="img-fluid rounded-start" alt="imagen de {{ articulo }}">
+                  </div>
+                  <div class="col-8">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ articulo }} (Creado por {{ articulo.autor }})</h5>
+                      <p class="card-text">{{ articulo.texto }}</p>
+                      <p class="card-text">
+                        Categorias:
+                            {% for categ in articulo.categorias.all %}
+                                <a href="">{{ categ }}</a>{% if not forloop.last %},{% endif %}
+                            {% endfor %}
+                      </p>
+                      <p class="card-text"><small class="text-muted">Modificado {{ articulo.modificado }}</small></p>
+                      <p class="card-text"><small class="text-muted">Comentarios:</small></p>
+                      {% for comentario in articulo.comentario_set.all %}
+                        <p class="card-text"><small class="text-muted">{{ comentario }}</small></p>
+                      {% endfor %}
+                     <p class="card-text">
+                        <small class="text-muted">
+                            <a href="{% url 'borrar' articulo.id %}">borrar</a>
+                        </small>
+                     </p>
+                     <p class="card-text">
+                        <small class="text-muted">
+                            <a href="{% url 'modificar' articulo.id %}">modificar</a>
+                        </small>
+                     </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+        </div>
+        <div class="col-1"></div>
+    </div>
+</div>    
+{% endblock %}
